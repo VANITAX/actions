@@ -1,0 +1,11 @@
+# action.yml
+name: 'Flexible ENV'
+description: 'Set env which confusing to get from action default ENV.'
+inputs:
+  git_short_length:
+    description: 'FLEX_GIT_SHA_SHORT length'
+    default: '7'
+    required: false
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
