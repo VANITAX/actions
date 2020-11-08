@@ -14,17 +14,17 @@ else
 fi
 
 if echo $GITHUB_REF | grep -q "refs/tags" ; then
-    echo "::set-env name=FLEX_GIT_TAG::${GITHUB_REF/refs\/tags\//}"
+    echo "FLEX_GIT_TAG=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_ENV
 fi
 
 # Export env
-echo "::set-env name=FLEX_GIT_SHA::$FLEX_GIT_SHA"
-echo "::set-env name=FLEX_GIT_REF::$FLEX_GIT_REF"
+echo "FLEX_GIT_SHA=$FLEX_GIT_SHA" >> $GITHUB_ENV
+echo "FLEX_GIT_REF=$FLEX_GIT_REF" >> $GITHUB_ENV
 
 ## Shorten
-echo "::set-env name=FLEX_GIT_SHA_SHORT::${FLEX_GIT_SHA:0:${INPUT_GIT_SHORT_LENGTH:-7}}"
+echo "FLEX_GIT_SHA_SHORT=${FLEX_GIT_SHA:0:${INPUT_GIT_SHORT_LENGTH:-7}}" >> $GITHUB_ENV
 FLEX_GIT_REF_SHORT="${FLEX_GIT_REF#refs/(heads|tags)/}"
-echo "::set-env name=FLEX_GIT_REF_SHORT::$FLEX_GIT_REF_SHORT"
-echo "::set-env name=FLEX_GIT_REF_FORMAT::${FLEX_GIT_REF_SHORT//[^a-z0-9A-Z]/-}"
+echo "FLEX_GIT_REF_SHORT=$FLEX_GIT_REF_SHORT" >> $GITHUB_ENV
+echo "FLEX_GIT_REF_FORMAT=${FLEX_GIT_REF_SHORT//[^a-z0-9A-Z]/-}" >> $GITHUB_ENV
 
 zsh -c "$*"
